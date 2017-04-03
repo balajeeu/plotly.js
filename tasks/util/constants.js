@@ -74,8 +74,8 @@ module.exports = {
     mapboxAccessToken: 'pk.eyJ1IjoiZXRwaW5hcmQiLCJhIjoiY2luMHIzdHE0MGFxNXVubTRxczZ2YmUxaCJ9.hwWZful0U2CQxit4ItNsiQ',
     pathToCredentials: path.join(pathToBuild, 'credentials.json'),
 
-    testContainerImage: 'plotly/testbed:latest',
-    testContainerName: process.env.PLOTLYJS_TEST_CONTAINER_NAME || 'imagetest',
+    testContainerImage: 'plotly/testbed:candidate',
+    testContainerName: 'stupefied_tesla',
     testContainerPort: '9010',
     testContainerUrl: 'http://localhost:9010/',
     testContainerHome: '/var/www/streambed/image_server/plotly.js',

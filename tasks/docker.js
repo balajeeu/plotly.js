@@ -47,4 +47,5 @@ switch(arg) {
 }
 
 console.log(msg);
+console.log(cmd);
 common.execCmd(cmd, cb, errorCb);

@@ -21,7 +21,7 @@ containerCommands.setup = [
     containerCommands.cpIndex,
     containerCommands.injectEnv,
     containerCommands.restart,
-    containerCommands.ping
+    'sleep 5'
 ].join(' && ');
 
 containerCommands.dockerRun = [

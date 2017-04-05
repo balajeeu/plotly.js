@@ -75,7 +75,7 @@ module.exports = {
     pathToCredentials: path.join(pathToBuild, 'credentials.json'),
 
     testContainerImage: 'plotly/testbed:candidate',
-    testContainerName: 'stupefied_tesla',
+    testContainerName: 'imagetest',
     testContainerPort: '9010',
     testContainerUrl: 'http://localhost:9010/',
     testContainerHome: '/var/www/streambed/image_server/plotly.js',

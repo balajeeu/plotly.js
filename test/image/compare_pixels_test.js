@@ -253,7 +253,7 @@ function comparePixels(mockName, cb) {
     function onEqualityCheck(err, isEqual) {
         if(err) {
             common.touch(imagePaths.diff);
-            console.error(err);
+            process.stdout.write(err + '\n');
             return;
         }
         if(isEqual) {
@@ -266,7 +266,7 @@ function comparePixels(mockName, cb) {
     // 525 means a plotly.js error
     function onResponse(response) {
         if(+response.statusCode === 525) {
-            console.error('plotly.js error while generating', mockName);
+            process.stdout.write('plotly.js error while generating ' + mockName + '\n');
             cb(false, mockName);
         }
     }

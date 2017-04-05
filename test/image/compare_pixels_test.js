@@ -271,7 +271,15 @@ function comparePixels(mockName, cb) {
         }
     }
 
+    // this catches connection errors
+    // e.g. when the image server blows up
+    function onError(err) {
+        process.stdout.write(err + '\n');
+        cb(false, mockName);
+    }
+
     request(requestOpts)
+        .on('error', onError)
         .on('response', onResponse)
         .pipe(saveImageStream)
         .on('close', checkImage);

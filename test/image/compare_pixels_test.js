@@ -94,6 +94,7 @@ else {
  * - font-wishlist
  * - all gl2d
  * - all mapbox
+ * - gl3d_surface-circular-colorscale
  *
  * don't behave consistently from run-to-run and/or
  * machine-to-machine; skip over them for now.
@@ -103,7 +104,8 @@ function untestableFilter(mockName) {
     var cond = !(
         mockName === 'font-wishlist' ||
         mockName.indexOf('gl2d_') !== -1 ||
-        mockName.indexOf('mapbox_') !== -1
+        mockName.indexOf('mapbox_') !== -1 ||
+        mockName.indexOf('gl3d_surface-circular-colorscale') !== -1
     );
 
     if(!cond) console.log(' -', mockName);
@@ -212,6 +214,10 @@ function comparePixels(mockName, cb) {
         imagePaths = getImagePaths(mockName),
         saveImageStream = fs.createWriteStream(imagePaths.test);
 
+    function log(msg) {
+        console.log('not ok', mockName + ':', msg);
+    }
+
     function checkImage() {
 
         // baseline image must be generated first
@@ -253,7 +259,7 @@ function comparePixels(mockName, cb) {
     function onEqualityCheck(err, isEqual) {
         if(err) {
             common.touch(imagePaths.diff);
-            process.stdout.write(err + '\n');
+            log(err)
             return;
         }
         if(isEqual) {
@@ -266,7 +272,7 @@ function comparePixels(mockName, cb) {
     // 525 means a plotly.js error
     function onResponse(response) {
         if(+response.statusCode === 525) {
-            process.stdout.write('plotly.js error while generating ' + mockName + '\n');
+            log('plotly.js error')
             cb(false, mockName);
         }
     }
@@ -274,7 +280,7 @@ function comparePixels(mockName, cb) {
     // this catches connection errors
     // e.g. when the image server blows up
     function onError(err) {
-        process.stdout.write(err + '\n');
+        log(err)
         cb(false, mockName);
     }
 

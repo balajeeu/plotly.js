@@ -345,6 +345,8 @@ proto.handleAnnotations = function() {
 };
 
 proto.destroy = function() {
+    if(this.glplot === null) return;
+
     var traces = this.traces;
 
     if(traces) {
@@ -354,15 +356,15 @@ proto.destroy = function() {
         });
     }
 
-    this.glplot.dispose();
-
     if(!this.staticPlot) this.container.removeChild(this.canvas);
     this.container.removeChild(this.svgContainer);
     this.container.removeChild(this.mouseContainer);
 
     this.fullData = null;
-    this.glplot = null;
     this.stopped = true;
+
+    this.glplot.dispose();
+    this.glplot = null;
 };
 
 proto.plot = function(fullData, calcData, fullLayout) {

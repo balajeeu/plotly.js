@@ -562,10 +562,10 @@ proto.plot = function(sceneData, fullLayout, layout) {
 };
 
 proto.destroy = function() {
+    if(this.glplot === null) return;
+
     this.glplot.dispose();
     this.container.parentNode.removeChild(this.container);
-
-    // Remove reference to glplot
     this.glplot = null;
 };
 

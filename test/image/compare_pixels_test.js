@@ -215,7 +215,7 @@ function comparePixels(mockName, cb) {
         saveImageStream = fs.createWriteStream(imagePaths.test);
 
     function log(msg) {
-        console.log('not ok', mockName + ':', msg);
+        process.stdout.write('Error for', mockName + ':', msg);
     }
 
     function checkImage() {
@@ -260,7 +260,7 @@ function comparePixels(mockName, cb) {
         if(err) {
             common.touch(imagePaths.diff);
             log(err)
-            return;
+            return cb(false, mockName);
         }
         if(isEqual) {
             fs.unlinkSync(imagePaths.diff);
@@ -273,7 +273,7 @@ function comparePixels(mockName, cb) {
     function onResponse(response) {
         if(+response.statusCode === 525) {
             log('plotly.js error')
-            cb(false, mockName);
+            return cb(false, mockName);
         }
     }
 
@@ -281,7 +281,7 @@ function comparePixels(mockName, cb) {
     // e.g. when the image server blows up
     function onError(err) {
         log(err)
-        cb(false, mockName);
+        return cb(false, mockName);
     }
 
     request(requestOpts)
